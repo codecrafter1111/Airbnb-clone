@@ -1,0 +1,143 @@
+<% layout("/layouts/boilerPlate") -%>
+
+<div class="signup-container">
+    <div class="signup-card">
+        
+        <div class="signup-header">
+            <h2>Log in to Airbnb</h2>
+        </div>
+
+        <div class="signup-form">
+            <form action="/login" method="POST" class="needs-validation" novalidate>
+                
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        name="username" 
+                        class="form-input" 
+                        placeholder="Enter your username"
+                        required
+                    >
+                    <div class="invalid-feedback">
+                        Please provide your username.
+                    </div>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        class="form-input" 
+                        placeholder="Enter your password"
+                        minlength="8"
+                        required
+                    >
+                    <div class="invalid-feedback">
+                        Password must be at least 8 characters.
+                    </div>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+
+                <div class="forgot-password">
+                    <a href="/forgot-password">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="btn-signup">Continue</button>
+            </form>
+
+            <div class="divider">
+                <span>or</span>
+            </div>
+<!-- 
+            <div class="social-login">
+                <button class="social-btn" type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="20" height="20">
+                        <path fill="#4285F4" d="M24.2 13.5h-8v3h5.7c-.6 2.3-2.6 3.7-5.7 3.7-3.5 0-6.4-2.9-6.4-6.4s2.9-6.4 6.4-6.4c1.5 0 2.9.5 4 1.4l2.2-2.2c-1.7-1.6-4-2.6-6.5-2.6-5.2 0-9.4 4.2-9.4 9.4s4.2 9.4 9.4 9.4c5.4 0 9-3.8 9-9.2 0-.6-.1-1.2-.2-1.8z"/>
+                    </svg>
+                    <span>Continue with Google</span>
+                </button>
+
+                <button class="social-btn" type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="20" height="20">
+                        <path fill="#1877F2" d="M28 16c0-6.627-5.373-12-12-12S4 9.373 4 16c0 5.99 4.388 10.954 10.125 11.854V19.47h-3.047V16h3.047v-2.643c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.234 2.686.234v2.953H19.83c-1.491 0-1.956.925-1.956 1.874V16h3.328l-.532 3.469h-2.796v8.385C23.612 26.954 28 21.99 28 16z"/>
+                    </svg>
+                    <span>Continue with Facebook</span>
+                </button>
+
+                <button class="social-btn" type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="20" height="20">
+                        <path d="M16 0C7.163 0 0 7.163 0 16s7.163 16 16 16 16-7.163 16-16S24.837 0 16 0zm3.592 24.096c-.333.117-.617.062-.804-.186-.187-.248-.242-.556-.062-.89.18-.333.469-.542.842-.617.373-.076.73.007.99.242.26.235.348.542.242.89-.106.349-.335.561-.708.561h-.5zm4.054-7.188c-.298.593-.744 1.104-1.338 1.534-.594.43-1.292.73-2.094.9v.896c0 .28-.099.518-.298.716-.198.198-.437.298-.716.298-.28 0-.518-.1-.716-.298-.198-.198-.298-.437-.298-.716v-.896c-.832-.205-1.556-.582-2.17-1.132-.615-.55-1.03-1.24-1.246-2.07-.093-.28-.031-.537.186-.77.217-.233.48-.35.79-.35h.062c.217 0 .404.069.56.205.156.137.267.311.335.523.186.56.52 1.017.994 1.37.474.353 1.017.53 1.628.53.64 0 1.184-.19 1.628-.57.444-.38.666-.848.666-1.404 0-.485-.155-.88-.466-1.184-.311-.304-.832-.58-1.566-.83l-.896-.3c-1.12-.373-1.984-.89-2.59-1.55-.606-.66-.91-1.494-.91-2.5 0-.8.2-1.52.602-2.156.402-.636.958-1.13 1.666-1.484v-.896c0-.28.1-.518.298-.716C14.482 4.1 14.72 4 15 4c.28 0 .518.1.716.298.198.198.298.437.298.716v.896c.747.186 1.39.52 1.93 1.006.54.485.92 1.08 1.14 1.784.093.28.024.543-.208.79-.232.248-.502.373-.81.373h-.062c-.218 0-.406-.066-.565-.198-.16-.132-.28-.298-.36-.498-.19-.485-.485-.88-.885-1.184-.4-.304-.87-.456-1.41-.456-.64 0-1.178.174-1.615.523-.437.35-.656.8-.656 1.35 0 .485.143.876.43 1.172.286.296.77.558 1.453.784l.896.3c1.213.4 2.137.97 2.773 1.708.636.74.954 1.63.954 2.676 0 .85-.21 1.62-.63 2.312z"/>
+                    </svg>
+                    <span>Continue with Apple</span>
+                </button>
+
+                <button class="social-btn" type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="20" height="20">
+                        <path fill="#222222" d="M16 2C8.268 2 2 8.268 2 16s6.268 14 14 14 14-6.268 14-14S23.732 2 16 2zm0 2.5c6.351 0 11.5 5.149 11.5 11.5S22.351 27.5 16 27.5 4.5 22.351 4.5 16 9.649 4.5 16 4.5zm-1.25 5v3.75H11v2.5h3.75V19.5h2.5v-3.75H21v-2.5h-3.75V9.5z"/>
+                    </svg>
+                    <span>Continue with Phone</span>
+                </button>
+            </div> -->
+
+            <div class="login-link">
+                Don't have an account? <a href="/signup">Sign up</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Bootstrap custom validation
+(function() {
+    'use strict';
+    
+    // Fetch the form
+    const form = document.querySelector('.needs-validation');
+    
+    if (form) {
+        form.addEventListener('submit', function(event) {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            
+            form.classList.add('was-validated');
+        }, false);
+        
+        // Real-time validation feedback
+        const inputs = form.querySelectorAll('.form-input');
+        inputs.forEach(function(input) {
+            input.addEventListener('blur', function() {
+                if (this.checkValidity()) {
+                    this.classList.add('is-valid');
+                    this.classList.remove('is-invalid');
+                } else {
+                    this.classList.add('is-invalid');
+                    this.classList.remove('is-valid');
+                }
+            });
+            
+            input.addEventListener('input', function() {
+                if (form.classList.contains('was-validated')) {
+                    if (this.checkValidity()) {
+                        this.classList.add('is-valid');
+                        this.classList.remove('is-invalid');
+                    } else {
+                        this.classList.add('is-invalid');
+                        this.classList.remove('is-valid');
+                    }
+                }
+            });
+        });
+    }
+})();
+</script>

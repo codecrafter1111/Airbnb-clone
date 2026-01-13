@@ -1,0 +1,116 @@
+<% layout("/layouts/boilerPlate") %>
+
+<div class="show-container">
+  <a href="/listings" class="back-link">All Listings</a>
+
+  <div class="listing-card">
+    <% if (listing.image && listing.image.url) { %>
+    <img src="<%= listing.image.url %>" alt="<%= listing.title %>" class="listing-image">
+    <% } %>
+
+    <div class="listing-content">
+      <div class="listing-header">
+        <h1 class="listing-description">Owned By : <i><%= listing.owner.username %></i></h1>
+        <h1 class="listing-title"><%= listing.title %></h1>
+        <div class="listing-meta">
+          <div class="meta-item">
+            <span class="meta-icon">📍</span>
+            <%= listing.location %>, <%= listing.country %>
+          </div>
+          <% if (listing.rating) { %>
+          <div class="rating-badge">
+            <span>⭐</span>
+            <%= listing.rating %>
+          </div>
+          <% } %>
+          <% if (listing.day) { %>
+          <div class="meta-item">
+            <span class="meta-icon"><%= listing.day === 'day' ? '☀️' : '🌙' %></span>
+            <%= listing.day === 'day' ? 'Day Time' : 'Night Time' %>
+          </div>
+          <% } %>
+        </div>
+      </div>
+
+      <% if (listing.description) { %>
+      <p class="listing-description"><%= listing.description %></p>
+      <% } %>
+
+      <div class="price-section">
+        <div class="price-label">Price per night</div>
+        <div class="price-value">
+          <span class="currency">₹</span><%= listing.price.toLocaleString("en-IN") %>
+        </div>
+      </div>
+
+      <% if (currUser && currUser._id.equals(listing.owner._id)) { %>
+      <div class="action-buttons">
+        <a href="/listings/<%= listing._id %>/edit" class="btn btn-primary">Edit Listing</a>
+        <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE" class="delete-form">
+          <button type="submit" class="btn btn-danger" >Delete Listing</button>
+        </form>
+      </div>
+       <% } %>
+      <div class="review-section">
+        <hr class="divider">
+        
+        <% if(listing.review && listing.review.length > 0) { %>
+          <h3 class="review-heading">All Reviews</h3>
+          <div class="reviews-list">
+            <% listing.review.forEach(function(review) { %>
+              <div class="review-card">
+                <h6>@_<%= review.author.username %></h6>
+                <div class="review-header">
+                  <div class="review-rating">
+                    <% for(let i = 0; i < review.rating; i++) { %>
+                      <span class="star-filled">★</span>
+                    <% } %>
+                    <% for(let i = review.rating; i < 5; i++) { %>
+                      <span class="star-empty">☆</span>
+                    <% } %>
+                  </div>
+                  <div class="review-date">
+                    <%= new Date(review.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %>
+                  </div>
+                </div>
+                <p class="review-comment"><%= review.comment %></p>
+                <form method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" class="mt-2">
+                  <button type="submit" class="btn btn-danger" style="font-size: 1rem; padding: 0.50rem 1rem;" >Delete Review</button>
+                </form>
+              </div>
+            <% }) %>
+          </div>
+          <hr class="divider">
+        <% } %>
+        
+         <% if (currUser) { %>
+        <h3 class="review-heading">Leave a review</h3>
+        <form method="POST" action="/listings/<%= listing._id %>/reviews" class="review-form needs-validation" novalidate>
+          <div class="rating-input-group mb-3">
+            <label class="form-label">Rating</label>
+            <div class="star-rating">
+              <input type="radio" id="star5" name="review[rating]" value="5" required>
+              <label for="star5" class="star">★</label>
+              <input type="radio" id="star4" name="review[rating]" value="4">
+              <label for="star4" class="star">★</label>
+              <input type="radio" id="star3" name="review[rating]" value="3">
+              <label for="star3" class="star">★</label>
+              <input type="radio" id="star2" name="review[rating]" value="2">
+              <label for="star2" class="star">★</label>
+              <input type="radio" id="star1" name="review[rating]" value="1">
+              <label for="star1" class="star">★</label>
+            </div>
+            <div class="invalid-feedback">Please select a rating.</div>
+          </div>
+          <div class="comment-input-group mb-3">
+            <label for="comment" class="form-label">Comment</label>
+            <textarea id="comment" name="review[comment]" rows="4" class="form-control" placeholder="Share your experience at this place..." required></textarea>
+            <div class="invalid-feedback">Please provide a comment.</div>
+          </div>
+          <button type="submit" class="submit-review-btn">Submit Review</button>
+        </form>
+         <% } %>
+      </div>
+    </div>
+  </div>
+</div>

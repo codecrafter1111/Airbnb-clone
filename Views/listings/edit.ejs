@@ -1,0 +1,160 @@
+<% layout("/layouts/boilerPlate") %>
+
+<div class="container mt-1 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+           <a href="/listings" class="back-link">All Listings</a>
+           <h1 class="h3 mb-3">Edit Listing</h1>
+           <!-- <div class="card-header bg-primary text-white">
+               <p class="mb-0 small">Update your listing details</p>
+           </div> -->
+            <div class="card shadow">
+                <div class="card-body p-5">
+                    <form class="needs-validation" method="POST" action="/listings/<%= listing._id %>?_method=PUT" novalidate enctype="multipart/form-data">
+                        <!-- Title -->
+                        <div class="mb-3">
+                            <label class="form-label" for="title">Title *</label>
+                            <input 
+                                type="text" 
+                                id="title"
+                                name="listing[title]" 
+                                class="form-control"
+                                required
+                                value="<%= listing.title %>"
+                            >
+                            <div class="invalid-feedback">
+                                Please provide a title for your listing.
+                            </div>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="mb-3">
+                            <label class="form-label" for="description">Description</label>
+                            <textarea 
+                                id="description"
+                                name="listing[description]" 
+                                class="form-control"
+                                rows="4"
+                            ><%= listing.description %></textarea>
+                            <div class="form-text">Describe your property in detail.</div><div class="invalid-feedback">
+                                Description should be not empty.
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <p><b>Original listing image</b></p>
+                            <img src="<%=listing.image.url%>" alt="error occur" style="max-width: 350px; max-height: 250px; object-fit: cover; border-radius: 8px;">
+                        </div>
+
+
+
+
+                        <!-- Image URL -->
+                        <div class="mb-3">
+                            <label class="form-label" for="image">Upload New Image</label>
+                            <input 
+                                type="file" 
+                                id="image"
+                                name="listing[image]" 
+                                class="form-control"                               
+                            >
+                            <div class="form-text">Paste a link to a high-quality image</div>
+                            <div class="invalid-feedback">
+                                Please provide a valid image URL.
+                            </div>
+                        </div>
+
+                        <!-- Price and Rating Row -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label" for="price">Price per night *</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">$</span>
+                                        <input 
+                                            type="number" 
+                                            id="price"
+                                            name="listing[price]" 
+                                            class="form-control"
+                                            required
+                                            min="0"
+                                            value="<%= listing.price %>"
+                                        >
+                                        <div class="invalid-feedback">
+                                            Please provide a valid price (minimum $0).
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Location and Country Row -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label" for="location">Location *</label>
+                                    <input 
+                                        type="text" 
+                                        id="location"
+                                        name="listing[location]" 
+                                        class="form-control"
+                                        required
+                                        value="<%= listing.location %>"
+                                    >
+                                    <div class="invalid-feedback">
+                                        Please provide a location.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label" for="country">Country *</label>
+                                    <input 
+                                        type="text" 
+                                        id="country"
+                                        name="listing[country]" 
+                                        class="form-control"
+                                        required
+                                        value="<%= listing.country %>"
+                                    >
+                                    <div class="invalid-feedback">
+                                        Please provide a country.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Listing Type -->
+                        <div class="mb-4">
+                            <label class="form-label" for="day">Listing Type</label>
+                            <select 
+                                id="day"
+                                name="listing[day]" 
+                                class="form-select"
+                            >
+                                <option value="" <%= !listing.day ? 'selected' : '' %>>Select type</option>
+                                <option value="day" <%= listing.day === 'day' ? 'selected' : '' %>>Day Time</option>
+                                <option value="night" <%= listing.day === 'night' ? 'selected' : '' %>>Night Time</option>
+                            </select>
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-between">
+                            <a href="/listings/<%= listing._id %>" class="btn btn-secondary">
+                                <i class="bi bi-x-circle"></i> Cancel
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-check-circle"></i> Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/JS/script.js"></script>
+
+
