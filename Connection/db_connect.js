@@ -3,7 +3,13 @@ const mongoose = require("mongoose")
 
 const connectDb = async ()=>{
    try{
-    await mongoose.connect("mongodb://127.0.0.1:27017/AirBnb")
+      const mongoUri = process.env.MONGO_URI
+
+      if(!mongoUri){
+         throw new Error("MONGO_URI is not defined")
+      }
+
+      await mongoose.connect(mongoUri)
     console.log("Database is connected sucessfully")
    }catch(err){
     console.log("Connection to DB is error" , err)

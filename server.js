@@ -4,7 +4,7 @@ if(process.env.NODE_ENV != "production"){ // to protect the env file from deploy
 
 const express = require("express")
 const app = express()
-const PORT = 8082
+const PORT = process.env.PORT || 8082
 const connectDb = require("./Connection/db_connect")
 const path = require("path")
 const methodOverride = require("method-override")
@@ -21,7 +21,13 @@ const userRouter = require("./Router/userRoute")
 
 
 //Connection to mongodb
-connectDb()
+const startServer = async () => {
+    await connectDb()
+
+    app.listen(PORT, () => {
+        console.log(`server is listening at http://localhost:${PORT}`)
+    })
+}
 
 // Middleware
 app.set("views", path.join(__dirname, "Views"))
@@ -32,8 +38,14 @@ app.engine("ejs", ejsMate)
 app.use(express.static(path.join(__dirname, "Public")))
 
 // Express sessionOption
+const sessionSecret = process.env.SESSION_SECRET
+
+if(!sessionSecret){
+    throw new Error("SESSION_SECRET is not defined")
+}
+
 const sessionOption = {
-    secret:"mysupersecretcode",
+    secret:sessionSecret,
     resave:false,
     saveUninitialized:true,
     cookie:{
@@ -100,7 +112,4 @@ app.use((err, req, res, next) => {
     res.status(status).render("error.ejs", { message, status })
 })
 
-
-app.listen(PORT, (req, res) => {
-    console.log(`server is listening at http://localhost:${PORT}`)
-})
+startServer()
